@@ -48,6 +48,11 @@
             </div>
         </div>
         <div class="footer">
+            <div class="country temperature">
+                <textarea id="weather">
+                    
+                </textarea>
+            </div>
             <div class="country">Romania</div>
             <div class="real-footer">
                 <div class="left-part">
@@ -65,5 +70,18 @@
         </div>
     </div>
 </body>
+<script src="./lib/jquery/dist/jquery.min.js"></script>
+<script>
+    var settings = {
+        "url": "https://localhost:5001/WeatherForecast",
+        "method": "GET",
+        "timeout": 0,
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        $('#weather').val("The weather tomorrow will be: " + response[0].summary);
+    });
+</script>
 
 </html>
