@@ -18,6 +18,8 @@ namespace AspNetSandbox.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private const float KELVIN_CONST = 273.15f;
+
         //private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController()
@@ -35,7 +37,7 @@ namespace AspNetSandbox.Controllers
             IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
 
-            return ConvertResponseToWeatherForecast(response.Content);
+            return ConvertResponseToWeatherForecast(response.Content,5);
 
             //var rng = new random();
             //return enumerable.range(1, 5).select(index => new weatherforecast
@@ -47,13 +49,13 @@ namespace AspNetSandbox.Controllers
             //.toarray();
         }
 
-        public IEnumerable<WeatherForecast> ConvertResponseToWeatherForecast(string content)
+        public IEnumerable<WeatherForecast> ConvertResponseToWeatherForecast(string content,int days=5)
         {
 
             var json = JObject.Parse(content);
 
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index =>
+            return Enumerable.Range(1, days).Select(index =>
             {
                 var firstDayFromJson = json["daily"][index];
                 var unixDateTime = firstDayFromJson.Value<long>("dt");
@@ -61,11 +63,16 @@ namespace AspNetSandbox.Controllers
                 return new WeatherForecast
                 {
                     Date = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).Date,
-                    TemperatureC = (int)Math.Round((firstDayFromJson["temp"].Value<float>("day") - 273.15f)),
+                    TemperatureC = ExtractCelsiusTemperatureFromDailyWeather(firstDayFromJson),
                     Summary = firstDayFromJson["weather"][0].Value<string>("main")
                 };
             }).ToArray();
 
+        }
+
+        private static int ExtractCelsiusTemperatureFromDailyWeather(JToken jsonDailyWeather)
+        {
+            return (int)Math.Round((jsonDailyWeather["temp"].Value<float>("day") - KELVIN_CONST));
         }
     }
 }
