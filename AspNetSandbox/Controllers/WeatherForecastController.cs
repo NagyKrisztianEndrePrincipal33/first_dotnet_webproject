@@ -20,12 +20,6 @@ namespace AspNetSandbox.Controllers
 
         private const float KELVIN_CONST = 273.15f;
 
-        //private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController()
-        {
-            //_logger = logger;
-        }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
@@ -39,14 +33,6 @@ namespace AspNetSandbox.Controllers
 
             return ConvertResponseToWeatherForecast(response.Content,5);
 
-            //var rng = new random();
-            //return enumerable.range(1, 5).select(index => new weatherforecast
-            //{
-            //    date = datetime.now.adddays(index),
-            //    temperaturec = rng.next(-20, 55),
-            //    summary = summaries[rng.next(summaries.length)]
-            //})
-            //.toarray();
         }
 
         public IEnumerable<WeatherForecast> ConvertResponseToWeatherForecast(string content,int days=5)
