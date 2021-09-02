@@ -55,13 +55,13 @@ namespace AspNetSandbox.Controllers
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index =>
             {
-                var firstDayFromJson = json["daily"][1];
+                var firstDayFromJson = json["daily"][index];
                 var unixDateTime = firstDayFromJson.Value<long>("dt");
                 
                 return new WeatherForecast
                 {
                     Date = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).Date,
-                    TemperatureC = (int)(firstDayFromJson["temp"].Value<float>("day") - 273.15f),
+                    TemperatureC = (int)Math.Round((firstDayFromJson["temp"].Value<float>("day") - 273.15f)),
                     Summary = firstDayFromJson["weather"][0].Value<string>("main")
                 };
             }).ToArray();
