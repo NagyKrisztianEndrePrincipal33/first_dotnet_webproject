@@ -7,7 +7,7 @@ namespace AspNetSandbox
 {
     public class CoordinatesFromCityName
     {
-        public float longitude { get; set; }
-        public float latitude { get; set; }
+        public double longitude { get; set; }
+        public double latitude { get; set; }
     }
 }

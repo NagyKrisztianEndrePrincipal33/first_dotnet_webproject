@@ -20,13 +20,18 @@ namespace AspNetSandbox.Controllers
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
-            Console.WriteLine(response.Content);
-            var json = JObject.Parse(response.Content);
+            return ConvertResponseToCoordinates(response.Content);
+            
+        }
+
+        public CoordinatesFromCityName ConvertResponseToCoordinates(string content)
+        {
+            var json = JObject.Parse(content);
             var coordinates = json["coord"];
             return new CoordinatesFromCityName
             {
-                latitude = coordinates.Value<float>("lat"),
-                longitude = coordinates.Value<float>("lon")
+                latitude = coordinates.Value<double>("lat"),
+                longitude = coordinates.Value<double>("lon")
             };
         }
     }
