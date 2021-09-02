@@ -17,11 +17,11 @@ namespace AspNetSandbox.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        //private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController()
         {
-            _logger = logger;
+            //_logger = logger;
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace AspNetSandbox.Controllers
             //.toarray();
         }
 
-        private IEnumerable<WeatherForecast> ConvertResponseToWeatherForecast(string content)
+        public IEnumerable<WeatherForecast> ConvertResponseToWeatherForecast(string content)
         {
 
             var rng = new Random();
