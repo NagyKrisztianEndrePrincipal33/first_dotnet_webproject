@@ -42,10 +42,11 @@ namespace AspNetSandbox
 
         // GET api/<BooksController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Book Get(int id)
         {
-            return "value";
+            return books.Single(book=>book.Id==id);
         }
+
 
         // POST api/<BooksController>
         [HttpPost]
@@ -64,5 +65,6 @@ namespace AspNetSandbox
         public void Delete(int id)
         {
         }
+
     }
 }
