@@ -4,10 +4,11 @@ namespace AspNetSandbox
 {
     public interface IBooksService
     {
-        void Delete(int id);
-        IEnumerable<Book> Get();
-        Book Get(int id);
-        void Post(Book value);
-        void Put(int id, string value);
+        void DeleteBookById(int id);
+        IEnumerable<Book> GettingAllTheBooks();
+        Book GetBookById(int id);
+        void AddingNewBook(Book value);
+        void UpdatingExistingBook(int id, Book value)
+;
     }
 }

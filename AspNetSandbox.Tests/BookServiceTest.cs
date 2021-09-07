@@ -17,14 +17,14 @@ namespace AspNetSandbox.Tests
 
             //Act
 
-            booksService.Post(new Book
+            booksService.AddingNewBook(new Book
             {
                 Title = "Test Book NR1",
                 Language = "English",
                 Author = "Some Author"
             });
-            booksService.Delete(2);
-            booksService.Post(new Book
+            booksService.DeleteBookById(2);
+            booksService.AddingNewBook(new Book
             {
                 Title = "Test Book NR2",
                 Language = "English",
@@ -32,7 +32,7 @@ namespace AspNetSandbox.Tests
             });
 
             // Assert
-            Assert.Equal("Test Book Nr1", booksService.Get(3).Title);
+            Assert.Equal("Test Book NR1", booksService.GetBookById(3).Title);
         }
     }
 }

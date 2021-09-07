@@ -27,20 +27,20 @@ namespace AspNetSandbox
                 Author = "Andrzej Sapkowski"
             });
         }
-        public IEnumerable<Book> Get()
+        public IEnumerable<Book> GettingAllTheBooks()
         {
             return books;
         }
 
 
 
-        public Book Get(int id)
+        public Book GetBookById(int id)
         {
-            return books.Single(book => book.Id == id);
+            return books.Find(book => book.Id == id);
         }
 
 
-        public void Post(Book value)
+        public void AddingNewBook(Book value)
         {
             int id = books.Count;
             value.Id = id + 1;
@@ -48,15 +48,22 @@ namespace AspNetSandbox
         }
 
 
-        public void Put(int id, string value)
+        public void UpdatingExistingBook(int id, Book value)
         {
-
+            int index = books.FindIndex(book => book.Id == id);
+            if(index == -1)
+            {
+                return;
+            }
+            books[index].Title = value.Title;
+            books[index].Language = value.Language;
+            books[index].Author = value.Author;
         }
 
 
-        public void Delete(int id)
+        public void DeleteBookById(int id)
         {
-            books.Remove(Get(id));
+            books.Remove(GetBookById(id));
         }
     }
 }
