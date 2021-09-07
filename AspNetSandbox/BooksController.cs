@@ -13,8 +13,8 @@ namespace AspNetSandbox
     public class BooksController : ControllerBase
     {
 
-        private List<Book> books;
-        public BooksController()
+        private static List<Book> books;
+         static BooksController()
         {
             books = new List<Book>();
             books.Add(new Book
@@ -53,7 +53,7 @@ namespace AspNetSandbox
         public void Post([FromBody] Book value)
         {
             int id = books.Count;
-            value.Id = id;
+            value.Id = id+1;
             books.Add(value);
         }
 
