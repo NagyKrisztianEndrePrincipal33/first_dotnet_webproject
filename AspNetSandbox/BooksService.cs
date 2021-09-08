@@ -8,6 +8,7 @@ namespace AspNetSandbox
     public class BooksService : IBooksService
     {
         private List<Book> books;
+
         public BooksService()
         {
             books = new List<Book>();
@@ -16,7 +17,7 @@ namespace AspNetSandbox
                 Id = 1,
                 Title = "Magic Book",
                 Language = "Spanish",
-                Author = "Paolo Coelho"
+                Author = "Paolo Coelho",
             });
 
             books.Add(new Book
@@ -24,21 +25,19 @@ namespace AspNetSandbox
                 Id = 2,
                 Title = "The Witcher",
                 Language = "Hungarian",
-                Author = "Andrzej Sapkowski"
+                Author = "Andrzej Sapkowski",
             });
         }
+
         public IEnumerable<Book> GettingAllTheBooks()
         {
             return books;
         }
 
-
-
         public Book GetBookById(int id)
         {
             return books.Find(book => book.Id == id);
         }
-
 
         public void AddingNewBook(Book value)
         {
@@ -47,19 +46,18 @@ namespace AspNetSandbox
             books.Add(value);
         }
 
-
         public void UpdatingExistingBook(int id, Book value)
         {
             int index = books.FindIndex(book => book.Id == id);
-            if(index == -1)
+            if (index == -1)
             {
                 return;
             }
+
             books[index].Title = value.Title;
             books[index].Language = value.Language;
             books[index].Author = value.Author;
         }
-
 
         public void DeleteBookById(int id)
         {
