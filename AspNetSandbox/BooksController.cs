@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace AspNetSandbox
 {
     [Route("api/[controller]")]
@@ -14,15 +10,23 @@ namespace AspNetSandbox
     {
         private readonly IBooksService booksService;
 
+        /// <summary>Initializes a new instance of the <see cref="BooksController" /> class.</summary>
+        /// <param name="booksService">The books service.</param>
         public BooksController(IBooksService booksService)
         {
             this.booksService = booksService;
         }
+
         // GET: api/<BooksController>
+
+        /// <summary>Gets all the books.</summary>
+        /// <returns>
+        ///   <para>List of books.</para>
+        /// </returns>
         [HttpGet]
         public IEnumerable<Book> Get()
         {
-            return  booksService.GettingAllTheBooks();
+            return booksService.GettingAllTheBooks();
         }
 
         // GET api/<BooksController>/5
@@ -36,8 +40,10 @@ namespace AspNetSandbox
             return booksService.GetBookById(id);
         }
 
-
         // POST api/<BooksController>
+
+        /// <summary>Posts the specified book.</summary>
+        /// <param name="value">A book object.</param>
         [HttpPost]
         public void Post([FromBody] Book value)
         {
@@ -45,6 +51,10 @@ namespace AspNetSandbox
         }
 
         // PUT api/<BooksController>/5
+
+        /// <summary>Updates a specified book by id.</summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="value">The book object.</param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Book value)
         {
@@ -52,6 +62,9 @@ namespace AspNetSandbox
         }
 
         // DELETE api/<BooksController>/5
+
+        /// <summary>Deletes the specified book by identifier.</summary>
+        /// <param name="id">The identifier.</param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
