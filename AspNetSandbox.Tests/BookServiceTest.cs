@@ -12,23 +12,22 @@ namespace AspNetSandbox.Tests
         [Fact]
         public void TestBookService()
         {
-            //Assume
+            // Assume
             var booksService = new BooksService();
 
-            //Act
-
+            // Act
             booksService.AddingNewBook(new Book
             {
                 Title = "Test Book NR1",
                 Language = "English",
-                Author = "Some Author"
+                Author = "Some Author",
             });
             booksService.DeleteBookById(2);
             booksService.AddingNewBook(new Book
             {
                 Title = "Test Book NR2",
                 Language = "English",
-                Author = "Some Author2"
+                Author = "Some Author2",
             });
 
             // Assert
