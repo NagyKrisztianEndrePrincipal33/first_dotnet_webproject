@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="CoordinatesFromCityName.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +11,8 @@ namespace AspNetSandbox
 {
     public class CoordinatesFromCityName
     {
-        public double longitude { get; set; }
-        public double latitude { get; set; }
+        public double Longitude { get; set; }
+
+        public double Latitude { get; set; }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="Book.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace AspNetSandbox
 {
@@ -14,6 +13,5 @@ namespace AspNetSandbox
         public string Author { get; set; }
 
         public string Language { get; set; }
-
     }
 }

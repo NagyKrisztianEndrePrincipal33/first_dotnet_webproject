@@ -24,7 +24,7 @@ namespace AspNetSandbox.Tests
             var weatherForecastForTomorrow = ((WeatherForecast[])output)[0];
             Assert.Equal("Clear", weatherForecastForTomorrow.Summary);
             Assert.Equal(19, weatherForecastForTomorrow.TemperatureC);
-            Assert.Equal(new DateTime(2021,9,3), weatherForecastForTomorrow.Date);
+            Assert.Equal(new DateTime(2021, 9, 3), weatherForecastForTomorrow.Date);
         }
 
         [Fact]

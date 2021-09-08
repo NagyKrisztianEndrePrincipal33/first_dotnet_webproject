@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿// <copyright file="CoordinatesFromCityNameController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AspNetSandbox.Controllers
 {
@@ -16,13 +16,13 @@ namespace AspNetSandbox.Controllers
         [HttpGet("{city}")]
         public CoordinatesFromCityName Get(string city)
         {
-            var client = new RestClient(String.Concat("http://api.openweathermap.org/data/2.5/weather?q=",city,"&appid=5c308e24cae79e04481631a88fa4acc5"));
+            var client = new RestClient(string.Concat("http://api.openweathermap.org/data/2.5/weather?q=", city, "&appid=5c308e24cae79e04481631a88fa4acc5"));
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             return ConvertResponseToCoordinates(response.Content);
-            
         }
+
         [NonAction]
         public CoordinatesFromCityName ConvertResponseToCoordinates(string content)
         {
@@ -30,11 +30,9 @@ namespace AspNetSandbox.Controllers
             var coordinates = json["coord"];
             return new CoordinatesFromCityName
             {
-                latitude = coordinates.Value<double>("lat"),
-                longitude = coordinates.Value<double>("lon")
+                Latitude = coordinates.Value<double>("lat"),
+                Longitude = coordinates.Value<double>("lon"),
             };
         }
     }
-
-    
 }
