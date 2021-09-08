@@ -23,7 +23,7 @@ namespace AspNetSandbox.Controllers
             return ConvertResponseToCoordinates(response.Content);
             
         }
-
+        [NonAction]
         public CoordinatesFromCityName ConvertResponseToCoordinates(string content)
         {
             var json = JObject.Parse(content);

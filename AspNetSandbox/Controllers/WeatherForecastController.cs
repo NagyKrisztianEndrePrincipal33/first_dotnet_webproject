@@ -34,7 +34,7 @@ namespace AspNetSandbox.Controllers
             return ConvertResponseToWeatherForecast(response.Content,5);
 
         }
-
+        [NonAction]
         public IEnumerable<WeatherForecast> ConvertResponseToWeatherForecast(string content,int days=5)
         {
 
