@@ -26,6 +26,10 @@ namespace AspNetSandbox
         }
 
         // GET api/<BooksController>/5
+
+        /// <summary>Gets the specified book by id.</summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Book object.</returns>
         [HttpGet("{id}")]
         public Book Get(int id)
         {
