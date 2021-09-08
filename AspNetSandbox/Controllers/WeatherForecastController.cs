@@ -7,19 +7,22 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
+/// <summary>
+/// Controller that allows us to get weather forecast.
+/// </summary>
 namespace AspNetSandbox.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+
+        private const float KELVIN_CONST = 273.15f;
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
-
-        private const float KELVIN_CONST = 273.15f;
-
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
@@ -31,9 +34,9 @@ namespace AspNetSandbox.Controllers
             IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
 
-            return ConvertResponseToWeatherForecast(response.Content,5);
-
+            return ConvertResponseToWeatherForecast(response.Content, 5);
         }
+
         [NonAction]
         public IEnumerable<WeatherForecast> ConvertResponseToWeatherForecast(string content,int days=5)
         {
