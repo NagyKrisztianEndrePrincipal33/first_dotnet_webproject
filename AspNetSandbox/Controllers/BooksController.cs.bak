@@ -7,22 +7,26 @@ using AspNetSandbox.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-namespace AspNetSandbox
+namespace AspNetSandbox.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly IBooksService booksService;
+        private readonly ApplicationDbContext _context;
 
         /// <summary>Initializes a new instance of the <see cref="BooksController" /> class.</summary>
         /// <param name="booksService">The books service.</param>
-        public BooksController(IBooksService booksService)
+        public BooksController(ApplicationDbContext context)
         {
-            this.booksService = booksService;
+            _context = context;
         }
 
         // GET: api/<BooksController>
+		public async Task<IActionResult> Index()
+        {
+            return View(await _context.Book.ToListAsync());
+        }
 
         /// <summary>Gets all the books.</summary>
         /// <returns>
@@ -63,7 +67,32 @@ namespace AspNetSandbox
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Book value)
         {
-            booksService.UpdatingExistingBook(id, value);
+            if (id != book.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BookExists(book.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(book);
         }
 
         // DELETE api/<BooksController>/5
@@ -73,7 +102,10 @@ namespace AspNetSandbox
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            booksService.DeleteBookById(id);
+            var book = await _context.Book.FindAsync(id);
+            _context.Book.Remove(book);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
