@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AspNetSandbox.Models;
 using Xunit;
 
 namespace AspNetSandbox.Tests

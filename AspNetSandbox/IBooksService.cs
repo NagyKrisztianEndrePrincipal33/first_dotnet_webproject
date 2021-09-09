@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using AspNetSandbox.Models;
 using System.Collections.Generic;
 
 namespace AspNetSandbox
