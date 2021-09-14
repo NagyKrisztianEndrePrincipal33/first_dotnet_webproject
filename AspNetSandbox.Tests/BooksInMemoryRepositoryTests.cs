@@ -3,6 +3,7 @@
 // </copyright>
 
 using AspNetSandbox.Models;
+using AspNetSandbox.Services;
 using Xunit;
 
 namespace AspNetSandbox.Tests

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspNetSandbox
+namespace AspNetSandbox.Services
 {
     public class BooksInMemoryRepository : IBookRepository
     {
