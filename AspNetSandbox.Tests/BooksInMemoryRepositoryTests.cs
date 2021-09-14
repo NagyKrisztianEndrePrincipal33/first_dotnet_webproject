@@ -7,13 +7,13 @@ using Xunit;
 
 namespace AspNetSandbox.Tests
 {
-    public class BookServiceTest
+    public class BooksInMemoryRepositoryTests
     {
         [Fact]
         public void TestBookService()
         {
             // Assume
-            var booksService = new BooksService();
+            var booksService = new BooksInMemoryRepository();
 
             // Act
             booksService.AddingNewBook(new Book

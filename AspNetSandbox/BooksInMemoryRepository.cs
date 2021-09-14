@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace AspNetSandbox
 {
-    public class BooksService : IBooksService
+    public class BooksInMemoryRepository : IBookRepository
     {
         private List<Book> books;
 
-        public BooksService()
+        public BooksInMemoryRepository()
         {
             books = new List<Book>();
             books.Add(new Book
