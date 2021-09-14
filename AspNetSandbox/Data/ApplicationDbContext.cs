@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿// <copyright file="ApplicationDbContext.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using AspNetSandbox.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetSandbox.Data
 {
@@ -13,6 +17,7 @@ namespace AspNetSandbox.Data
             : base(options)
         {
         }
+
         public DbSet<AspNetSandbox.Models.Book> Book { get; set; }
     }
 }

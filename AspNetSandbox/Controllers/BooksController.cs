@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="BooksController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AspNetSandbox;
 using AspNetSandbox.Data;
 using AspNetSandbox.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -12,35 +17,33 @@ namespace AspNetSandBox.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly ApplicationDbContext context;
+        private readonly IBookRepository repository;
 
-        /// <summary>Initializes a new instance of the <see cref="BooksController" /> class.</summary>
-        public BooksController(ApplicationDbContext context)
+        public BooksController(IBookRepository repository)
         {
-            this.context = context;
+            this.repository = repository;
         }
 
         /// <summary>Get all instances of books.</summary>
         /// <returns>Ennumerable of Book objects.</returns>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            return Ok(await this.context.Book.ToListAsync());
+            return Ok(repository.GettingAllTheBooks());
         }
 
         /// <summary>Gets the specified book by id.</summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Book object.</returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            var book = await this.context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var book = repository.GetBookById(id);
             if (book == null)
             {
                 return NotFound();
@@ -51,13 +54,13 @@ namespace AspNetSandBox.Controllers
 
         /// <summary>Adds books to List of Book objects.</summary>
         /// <param name="book">The book.</param>
+        /// <returns>IActionResult. </returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Book book)
+        public IActionResult Post([FromBody] Book book)
         {
             if (ModelState.IsValid)
             {
-                this.context.Add(book);
-                await this.context.SaveChangesAsync();
+                repository.AddingNewBook(book);
                 return Ok();
             }
 
@@ -67,8 +70,9 @@ namespace AspNetSandBox.Controllers
         /// <summary>Update values of book with certain id.</summary>
         /// <param name="id">The identifier.</param>
         /// <param name="book">The book.</param>
+        /// <returns>IActionResult. </returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Book book)
+        public IActionResult Put(int id, [FromBody] Book book)
         {
             if (id != book.Id)
             {
@@ -79,8 +83,7 @@ namespace AspNetSandBox.Controllers
             {
                 try
                 {
-                    this.context.Update(book);
-                    await this.context.SaveChangesAsync();
+                    repository.UpdatingExistingBook(id,book);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -95,12 +98,11 @@ namespace AspNetSandBox.Controllers
 
         /// <summary>Removes a book from the List of Book objects.</summary>
         /// <param name="id">The identifier.</param>
+        /// <returns>IActionResult. </returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var book = await this.context.Book.FindAsync(id);
-            this.context.Book.Remove(book);
-            await this.context.SaveChangesAsync();
+            repository.DeleteBookById(id);
             return Ok();
         }
     }

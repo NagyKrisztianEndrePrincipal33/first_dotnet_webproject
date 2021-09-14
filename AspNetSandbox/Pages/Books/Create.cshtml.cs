@@ -1,12 +1,16 @@
-﻿using System;
+﻿// <copyright file="Create.cshtml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetSandbox.Data;
+using AspNetSandbox.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using AspNetSandbox.Data;
-using AspNetSandbox.Models;
 
 namespace AspNetSandbox.Pages.Books
 {

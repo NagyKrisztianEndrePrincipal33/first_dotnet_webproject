@@ -1,9 +1,9 @@
-﻿// <copyright file="IBooksService.cs" company="PlaceholderCompany">
+﻿// <copyright file="IBookRepository.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using AspNetSandbox.Models;
 using System.Collections.Generic;
+using AspNetSandbox.Models;
 
 namespace AspNetSandbox
 {
