@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AspNetSandbox.Data;
 using AspNetSandbox.Models;
+using Microsoft.AspNetCore.SignalR;
 
 namespace AspNetSandbox.Pages.Books
 {
     public class EditModel : PageModel
     {
         private readonly AspNetSandbox.Data.ApplicationDbContext _context;
+        private readonly IHubContext<MessageHub> hubContext;
 
-        public EditModel(AspNetSandbox.Data.ApplicationDbContext context)
+        public EditModel(AspNetSandbox.Data.ApplicationDbContext context, IHubContext<MessageHub> hubContext)
         {
             _context = context;
+            this.hubContext = hubContext;
         }
 
         [BindProperty]
@@ -41,18 +44,18 @@ namespace AspNetSandbox.Pages.Books
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id, Book book)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Book).State = EntityState.Modified;
-
             try
             {
+                _context.Book.Update(book);
                 await _context.SaveChangesAsync();
+                hubContext.Clients.All.SendAsync("BookUpdated", book);
             }
             catch (DbUpdateConcurrencyException)
             {

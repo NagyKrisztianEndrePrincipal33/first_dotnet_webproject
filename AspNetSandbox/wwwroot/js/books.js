@@ -23,11 +23,21 @@ connection.on("BookCreated", function(book) {
     </tr>`);
 });
 
-connection.on("BookUpdated", function(oldBook, book) {
-    const rows = $("tr");
-    for (var x of rows) {
-        console.log(x);
-    }
+connection.on("BookUpdated", function (book) {
+    $(`#${book.id}`)[0].innerHTML = ` <td>
+    ${book.title}
+</td>
+<td>
+    ${book.author}
+</td>
+<td>
+    ${book.language}
+</td>
+<td>
+    <a href="/Books/Edit?id=${book.id}">Edit</a> |
+    <a href="/Books/Details?id=${book.id}">Details</a> |
+    <a href="/Books/Delete?id=${book.id}">Delete</a>
+</td>`;
 });
 
 connection.on("BookDeleted", function(book) {
