@@ -41,7 +41,7 @@ namespace AspNetSandBox.Controllers
 
         /// <summary>Gets the specified book by id.</summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>Book object.</returns>
+        /// <returns>ReadBookDto object.</returns>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -55,8 +55,8 @@ namespace AspNetSandBox.Controllers
             {
                 return NotFound();
             }
-
-            return Ok(book);
+            ReadBookDto readBookDto = mapper.Map<ReadBookDto>(book);
+            return Ok(readBookDto);
         }
 
         /// <summary>Adds books to List of Book objects.</summary>
