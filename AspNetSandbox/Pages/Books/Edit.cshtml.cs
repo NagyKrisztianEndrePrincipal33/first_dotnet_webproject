@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetSandbox.Data;
+using AspNetSandbox.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AspNetSandbox.Data;
-using AspNetSandbox.Models;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetSandbox.Pages.Books
 {
@@ -39,6 +39,7 @@ namespace AspNetSandbox.Pages.Books
             {
                 return NotFound();
             }
+
             return Page();
         }
 
@@ -55,7 +56,7 @@ namespace AspNetSandbox.Pages.Books
             {
                 _context.Book.Update(book);
                 await _context.SaveChangesAsync();
-                hubContext.Clients.All.SendAsync("BookUpdated", book);
+                await hubContext.Clients.All.SendAsync("BookUpdated", book).ConfigureAwait(false);
             }
             catch (DbUpdateConcurrencyException)
             {

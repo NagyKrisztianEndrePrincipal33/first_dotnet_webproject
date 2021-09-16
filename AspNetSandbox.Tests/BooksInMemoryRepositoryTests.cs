@@ -1,4 +1,4 @@
-﻿// <copyright file="BookServiceTest.cs" company="PlaceholderCompany">
+﻿// <copyright file="BooksInMemoryRepositoryTests.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
