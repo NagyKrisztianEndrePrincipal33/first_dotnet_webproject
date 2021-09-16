@@ -45,7 +45,7 @@ namespace AspNetSandbox.Services
 
         public void UpdatingExistingBook(int id, Book book)
         {
-                    this.context.Update(book);
+                    this.context.Book.Update(book);
                     this.context.SaveChanges();
         }
     }
