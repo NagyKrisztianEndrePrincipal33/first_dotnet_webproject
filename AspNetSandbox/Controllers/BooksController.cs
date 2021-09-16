@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspNetSandbox;
 using AspNetSandbox.Data;
+using AspNetSandbox.DTOs;
 using AspNetSandbox.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +22,13 @@ namespace AspNetSandBox.Controllers
     {
         private readonly IBookRepository repository;
         private readonly IHubContext<MessageHub> hubContext;
+        private readonly IMapper mapper;
 
-        public BooksController(IBookRepository repository, IHubContext<MessageHub> hubContext)
+        public BooksController(IBookRepository repository, IHubContext<MessageHub> hubContext, IMapper mapper)
         {
             this.repository = repository;
             this.hubContext = hubContext;
+            this.mapper = mapper;
         }
 
         /// <summary>Get all instances of books.</summary>
@@ -56,13 +60,14 @@ namespace AspNetSandBox.Controllers
         }
 
         /// <summary>Adds books to List of Book objects.</summary>
-        /// <param name="book">The book.</param>
+        /// <param name="bookDto">The book.</param>
         /// <returns>IActionResult. </returns>
         [HttpPost]
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody] CreateBookDto bookDto)
         {
             if (ModelState.IsValid)
             {
+                Book book = mapper.Map<Book>(bookDto);
                 repository.AddingNewBook(book);
                 hubContext.Clients.All.SendAsync("BookCreated", book);
                 return Ok();
@@ -87,7 +92,9 @@ namespace AspNetSandBox.Controllers
             {
                 try
                 {
-                    repository.UpdatingExistingBook(id,book);
+                    var oldBook = repository.GetBookById(id);
+                    repository.UpdatingExistingBook(id, book);
+                    hubContext.Clients.All.SendAsync("BookUpdated", book);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -106,7 +113,9 @@ namespace AspNetSandBox.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            var book = repository.GetBookById(id);
             repository.DeleteBookById(id);
+            hubContext.Clients.All.SendAsync("BookDeleted", book);
             return Ok();
         }
     }
