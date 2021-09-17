@@ -115,7 +115,8 @@ namespace AspNetSandbox
             Uri uri = new (connectionString);
             string userId = uri.UserInfo.Split(':')[0];
             string password = uri.UserInfo.Split(':')[1];
-            return $"Database={uri.AbsolutePath.TrimStart('/')}; Host={uri.Host}; Port={uri.Port}; User Id={userId}; Password={password}; SSL Mode=Require;Trust Server Certificate=true";
+            string database = uri.AbsolutePath.TrimStart('/');
+            return $"Database={database}; Host={uri.Host}; Port={uri.Port}; User Id={userId}; Password={password}; SSL Mode=Require;Trust Server Certificate=true";
         }
     }
 }
