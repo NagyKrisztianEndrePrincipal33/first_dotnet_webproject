@@ -13,6 +13,7 @@ namespace AspNetSandbox
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine(Environment.GetEnvironmentVariable("DATABASE_URL"));
             CreateHostBuilder(args).Build().Run();
         }
 
