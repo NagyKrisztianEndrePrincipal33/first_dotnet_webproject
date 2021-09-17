@@ -13,6 +13,5 @@ namespace AspNetSandbox
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
-
     }
 }

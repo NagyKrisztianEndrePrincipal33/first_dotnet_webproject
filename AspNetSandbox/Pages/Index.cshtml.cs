@@ -23,7 +23,7 @@ namespace AspNetSandbox.Pages
 
         public void OnGet()
         {
-
+            Console.WriteLine("Hello!");
         }
     }
 }
