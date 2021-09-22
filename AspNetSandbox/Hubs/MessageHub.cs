@@ -5,7 +5,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace AspNetSandbox
+namespace AspNetSandbox.Hubs
 {
     public class MessageHub : Hub
     {

@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using AspNetSandbox.Models;
 
-namespace AspNetSandbox
+namespace AspNetSandbox.Services
 {
     public interface IBookRepository
     {
