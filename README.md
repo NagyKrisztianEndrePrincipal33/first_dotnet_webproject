@@ -1,6 +1,18 @@
-﻿## How to run in Docker from the commandline
+﻿# Endre Sandbox project for backend course
 
-Build in container
+name | value
+--- | ---
+language | C#
+database | Postgres
+deployed | https://aspnetsandbox.herokuapp.com/
+
+## How to run in Docker from the commandline
+
+Navigate into [AspNetSandbox](AspNetSandbox) directory.
+
+cd AspNetSandbox
+
+### Build in container
 ```
 docker build -t web_endre .
 ```
