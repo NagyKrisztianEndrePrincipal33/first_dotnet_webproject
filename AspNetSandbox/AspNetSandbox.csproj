@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
